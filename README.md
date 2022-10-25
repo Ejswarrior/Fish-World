@@ -2,18 +2,18 @@
 Backend web creation practice
 
 
-#Goals
+# Goals
 To better understand backend CRUD development using react/express JSX. Effectivly using each element of CRUD to create a website. Examples
 will be:
-Comment sections
-Adding fish to database
-Deleting Fish 
-Updating Fish
+  Comment sections
+  Adding fish to database
+  Deleting Fish 
+  Updating Fish
 
-#Languages
-Javascript
+# Languages
+  Javascript
 
-#Frameworks
-Express
-React 
-JSX
+# Frameworks
+  Express
+  React 
+  JSX
