@@ -2,21 +2,26 @@ const React = require('react')
 const Default = require('./default')
 
 function Home(data){
+console.log(data.fishes)
+let fishList = data.fish.map((fish) =>{
+
     
-    let fishList = data.fishes.map((fish) =>{
     return(
-       
         <div>
-            <h3>Name: {fish.name}</h3>
-            <h5>Geolocation: {fish.geolocation}</h5>
-            <h5>Favorite Bait: {fish.favBait}</h5>
-            <h5>Colors: {fish.colors}</h5>
-            <img src={fish.image}/>
+            <h3><a href={`/fish/${fish.id}`}>Name: {fish.name}</a></h3>
+            <h4>Location: {fish.geolocation}</h4>
+            <h4>{fish.colors}</h4>
+            <h4>{fish.favoriteBait}</h4>
+            <img src={fish.image}/>  
+            <br></br>
         </div>
-      
     )
-    
 })
+
+
+
+
+
 return(
     <Default>
         <main>
