@@ -4,9 +4,9 @@ const Default = require('./default')
 
 function Show(data){
 
-    let commens = data.fish.comment.map(c => {
+    let commens = data.fish.comment.map((c, index) => {
         return (
-            <p>{c.comment}</p>
+            <p>Comment {index}: {c.comment}</p>
         )
     })
     return(
@@ -17,7 +17,8 @@ function Show(data){
                 <h5>Favorite Bait: {data.fish.favBait}</h5>
                 <h5>Colors: {data.fish.colors}</h5>
                 <img src={data.fish.image}/> 
-
+                <h3>Comments</h3>
+                <hl></hl>
                 <div>{commens}</div>
                 
 

@@ -15,7 +15,7 @@ res.send('<h1>Hello</h1>')
 })
 
 app.use('/fish', require('./fish/fish'))
-
+app.use('/user', require('./fish/user-controller'))
 
 mongoose.connect(process.env.MONGO_URI, {useNewUrlParser: true, useUnifiedTopology: true},
     () => {console.log(process.env.MONGO_URI)})
