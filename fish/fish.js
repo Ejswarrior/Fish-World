@@ -1,7 +1,7 @@
 const router = require('express').Router()
 const fishes = require('../fishModel/modFishes')
 const fishe = require('../fishModel/fishes')
-
+const comments = require('../fishModel/comments')
 
 
 router.get('/', (req,res) =>{
@@ -17,33 +17,41 @@ router.get('/new', (req, res) => {
     })
     
 })
-router.post('/:id', (req,res) =>{
-    fishes.create(req.body)
-    .then((fish) => {
-        res.redirect(`/fish`)
-    })
-    
-})
+
 router.get('/:id', (req,res) => {
     fishes.findById(req.params.id)
+    .populate('comment')
     .then(fish => {
+        console.log(fishes.comment)
         res.render('Show', {fish})
     })
     
 })
 
+router.post('/:id', (req, res) => {
+        fishes.findById(req.params.id)
+        .populate('comment')
+        .then(fish => {
+            comments.create(req.body)
+            .then(commentz => {
+                fish.comment.push(commentz.id)
+                fish.save()
+                .then(() => {
+                res.redirect(`/fish/${req.params.id}`)
+                })
+            })
+        })
+
+})
 
 
 router.post('/', (req, res) =>{
-
-    fishes.create(req.body)
-    .then((fish) => {
-        fishes.findById(req.params.id)
-        .then((fish) => {
-        res.redirect(`show`, {fish})
-        })
-    })
     
+    
+        fishes.create(req.body)
+        .then((fish) => {
+        res.redirect(`Show`, {fish})
+        })
 
 })
 

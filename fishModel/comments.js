@@ -1,11 +1,10 @@
-require('dotenv').config()
-const mongooses = require('mongoose')
-const {Schemas} = mongooses
+require('dotenv').config
+const mongoose = require('mongoose')
+const {Schema} = mongoose
 
-const commentSchema = new mongoose.Schemas({
-    comment: {type: String, required: true},
+const commentSchema = new mongoose.Schema({
+    comment: {type: String}
 })
 
-const Comment = mongoose.model('comment', commentSchema)
+const Comment = mongoose.model('Comment', commentSchema)
 module.exports = Comment
-

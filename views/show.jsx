@@ -3,6 +3,12 @@ const Default = require('./default')
 
 
 function Show(data){
+
+    let commens = data.fish.comment.map(c => {
+        return (
+            <p>{c.comment}</p>
+        )
+    })
     return(
         <Default>
             <div>
@@ -10,8 +16,9 @@ function Show(data){
                 <h5>Geolocation: {data.fish.geolocation}</h5>
                 <h5>Favorite Bait: {data.fish.favBait}</h5>
                 <h5>Colors: {data.fish.colors}</h5>
-                <img src={data.fish.image}/>  
-                <p>{data.fish.comment}</p>
+                <img src={data.fish.image}/> 
+
+                <div>{commens}</div>
                 
 
                 <form action={`/fish/${data.fish.id}`} method='POST'>
