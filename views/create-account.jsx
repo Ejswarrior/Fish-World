@@ -6,7 +6,7 @@ function createAccount(){
         <Default>
             <div>
                 <h2>Enter in your Login information</h2>
-                    <form action='/user' method="POST">
+                    <form action={`/user/profile`} method="POST">
                         <div>
                             <label htmlFor='name'>Fist Name</label>
                             <input type="text" name='name' id="name"/>

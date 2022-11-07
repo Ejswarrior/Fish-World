@@ -2,6 +2,7 @@ const router = require('express').Router()
 const fishes = require('../fishModel/modFishes')
 const fishe = require('../fishModel/fishes')
 const comments = require('../fishModel/comments')
+const session = require('express-session')
 
 
 router.get('/', (req,res) =>{
@@ -46,8 +47,6 @@ router.post('/:id', (req, res) => {
 
 
 router.post('/', (req, res) =>{
-    
-    
         fishes.create(req.body)
         .then((fish) => {
         res.redirect(`Show`, {fish})
