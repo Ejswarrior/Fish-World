@@ -3,15 +3,6 @@ const Default = require('./default')
 const session = require('express-session')
 
 function Login(data){
-   
-    let loginError = session
-    if(loginError == false){
-        return(
-            loginError = <h2>data.error</h2>
-            )
-        }
-    else{loginError = <p></p>}
-
     return(
         <Default>
             <div>
@@ -23,8 +14,8 @@ function Login(data){
                     <input type="password" name='password' id="password"/>
                     <input type='submit' value="Log in"></input>
                 </form>
-
-                {loginError}
+                {data.messages && <p style={{color:'red'}}>{data.messages}</p>}       
+                
             </div>
         </Default>
     )

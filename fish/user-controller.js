@@ -10,7 +10,7 @@ router.get('/', (req,res) => {
 
 router.get('/login', (req, res) =>{
     let users = Users.find()
-    res.render('login', {users})
+    res.render('login', {messages: req.flash('error')})
 })
 
 router.get('/create/account', (req,res) =>{
@@ -18,26 +18,42 @@ router.get('/create/account', (req,res) =>{
 })
 
 router.get('/profile/:id', async (req, res) => {
+    if(req.session.Users){
+    console.log(req.session.Users)
     let findUsers = await Users.findById(req.params.id)
-    console.log(findUsers)
     res.render('profile', {findUsers})
+    }
+    else{
+        res.redirect('/users/login')
+    }
 })
 
 router.post('/login/check', async (req, res) =>{
     let userEntry = await Login.create(req.body)
-    let userCount = await Login.find()
     let userAuthentification = await Users.find()
-    console.log(`first:${userCount}`)
-        if(userEntry.username == userAuthentification.username && userEntry.password == userAuthentification.password){
-           
-            let userFound = await Users.findById(req.params.id)
-            res.redirect(`profile/${userFound.id}`)
+    
+    let mapCheck = userAuthentification.map((item) => {
+        if(userEntry.username == item.username && userEntry.password == item.password){
+            return item.id
         }
-        else if(userEntry.username != userAuthentification.username && userEntry.password != userAuthentification.password){
-            res.redirect(`/user/login`)
-        }
-})
+    })
+    try{
+        let userFind = await Users.findById(mapCheck)
+        let authDelete = await Login.deleteMany({})
+        mapCheck.length = 0
+        req.session.Users = userFind
+        res.redirect(`/user/profile/${userFind.id}`)
+        
+    }
 
+    catch(err){
+        mapCheck.length = 0
+        req.flash('error', "Enter in the correct Username and Password")
+        res.redirect('/user/login')
+    }
+})
+   
+    
 router.post('/profile', async (req,res) => {
     let createUsers = await Users.create(req.body)
     console.log(createUsers)
