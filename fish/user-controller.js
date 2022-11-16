@@ -10,6 +10,7 @@ const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
 
 const {createToken, verifyToken} = require('../middleware/JWT')
+const {arrayFilterUsername, arrayFilterEmail} = require('../middleware/arrayFilter')
 
 
 
@@ -64,24 +65,36 @@ router.get('/profile/:id', verifyToken, async (req, res) => {
 router.post('/profile', async (req,res) => {
     const {name, email, username, password} = req.body
     const hash = await bcrypt.hash(password, 10)
-    let findUsers = await Users.findOne({where: {username: username}})
+    let findUsers = await Users.find()
 
-    if(findUsers.username = username){
-    let createUsers = await Users.create({
-        name: name,
-        email: email,
-        username: username,
-        password: hash
-    })
-    try{
-    res.redirect(`/user/login`)
+    let duplicateUsername = arrayFilterUsername(findUsers)
+    let duplicateEmail = arrayFilterEmail(findUsers)
+
+    if(duplicateUsername.length == 0 && duplicateEmail.length == 0){
+        let createUsers = await Users.create({
+            name: name,
+            email: email,
+            username: username,
+            password: hash
+        })
+            try{
+            res.redirect(`/user/login`)
+            }
+                catch(err){
+                    res.status(400).json({error: err})
+                }
+    } 
+    else if(duplicateUsername != 0 && duplicateEmail.length == 0){
+        res.status(400).json('That Username already exists')
     }
-    catch(err){
-        res.status(400).json({error: err})
+    else if(duplicateUsername == 0 && duplicateEmail.length != 0){
+        res.status(400).json('That Email already exists')
     }
-} else{
-    res.status(400).json('Already and account')
-}
+
+    else{
+        res.status(400).json('Username and email is already in use')
+    }
+    
 })
 
 
