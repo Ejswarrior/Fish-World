@@ -1,7 +1,7 @@
 const React = require('react')
 const Default = require('./default')
 
-function createAccount(){
+function createAccount(data){
     return(
         <Default>
             <div>
@@ -29,6 +29,7 @@ function createAccount(){
 
                         <input type='submit' value="Submit"></input>
                     </form>
+                    {data.messages && <p style={{color:'red'}}>{data.messages}</p>}  
             </div>
         </Default>
     )
