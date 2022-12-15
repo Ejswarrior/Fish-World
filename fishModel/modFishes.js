@@ -1,11 +1,4 @@
-// module.exports = [{
-//     name: 'Lake trout',
-//     geolocation: 'North Hemisphere',
-//     favBait: 'jig',
-//     colors: 'Grey top/White Belly',
-//     image: '/laketrout.jpg',
-//     comment: ''
-// }]
+
 
 require('dotenv').config()
 const mongoose = require('mongoose')
@@ -20,6 +13,7 @@ const fishSchema = new mongoose.Schema({
     favoriteBait: {type: String},
     colors: {type: String},
     image: {type: String},
+    user: {type: String},
     comment: [{type: Schema.Types.ObjectId, ref:'Comment'}]
 })
 

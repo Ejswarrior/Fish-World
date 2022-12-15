@@ -5,19 +5,16 @@ const session = require('express-session')
 const flash = require('connect-flash');
 const jwt = require('jsonwebtoken')
 const cookieParser = require('cookie-parser')
+const methodOverride = require("method-override")
 const bcrypt = require('bcrypt')
+const mongoStore = require('connect-mongo');
+const MongoStore = require('connect-mongo');
 const app = express()
 
 
 //Middleware
 
 //Created a session to use flash to send messages during redirects
-app.use(session({
-    secret: 'webslesson',
-    cookie: {maxAge : 60000},
-    saveUninitialized : false,
-    resave: false,
-}))
 
 app.use(flash())
 app.set('views', __dirname + '/views')
@@ -27,6 +24,10 @@ app.use(express.static('public'))
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 app.use(cookieParser())
+app.use(methodOverride('_method'))
+// app.use(session({
+//     store: MongoStore.create({mongoUrl: MONGO_URI})
+// }))
 
 app.get('/', (req, res) => {
 res.send('<h1>Hello</h1>')
