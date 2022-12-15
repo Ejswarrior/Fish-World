@@ -6,13 +6,16 @@ let fishList = data.fish.map((fish) =>{
 
     
     return(
-        <div>
-            <h3><a href={`/fish/${fish.id}`}>Name: {fish.name}</a></h3>
-            <h4>Location: {fish.geolocation}</h4>
-            <h4>{fish.colors}</h4>
-            <h4>{fish.favoriteBait}</h4>
-            <img src={fish.image}/>  
-            <br></br>
+        <div class="col">
+            <div class="row">
+                <img class="img-fluid w-50 h-50" src={fish.image}/>
+            </div>
+            <div class="row">
+                <h3><a href={`/fish/${fish.id}`}></a>{fish.user} caught a: {fish.name}</h3>
+                <h4>Location Caught: {fish.geolocation}</h4>
+                <h4>{fish.favoriteBait}</h4>
+                <br></br>
+            </div>
         </div>
     )
 })
@@ -28,14 +31,12 @@ let fishList = data.fish.map((fish) =>{
 
 return(
     <Default>
-        <main>
+        <div class="container justify-content:center">
             <h1>The world of fish</h1>
-            <a href={"/user/login"}><button >Login</button></a>
-            <button>Home</button>
-            <div>
+            <a href={"/user/login"}><button class="btn btn-secondary">Login</button></a>
+            <button class="btn btn-secondary">Home</button>
                 {fishList}
-            </div>
-        </main>
+        </div>
     </Default>
 )
 }
